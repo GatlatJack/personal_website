@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background-color: #2563eb;
+        background-color: #8b4513;
         color: white;
         border: none;
         cursor: pointer;
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
         visibility: hidden;
         transition: all 0.3s ease;
         z-index: 1000;
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
     `;
     
     document.body.appendChild(scrollTopBtn);
