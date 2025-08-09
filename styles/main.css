@@ -821,16 +821,16 @@ section {
 /* Special styling for bioinformatics blog card */
 .blog-card.bioinformatics-post .blog-placeholder {
     display: flex;
+    background: transparent;
 }
 
 .blog-image {
-    height: 250px;
-    background: rgba(255, 255, 255, 0.95);
+    height: 200px;
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 15px;
 }
 
 .blog-placeholder {
@@ -839,38 +839,31 @@ section {
     justify-content: center;
     width: 100%;
     height: 100%;
+    background: transparent;
 }
 
 .blog-placeholder img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .blog-date {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background-color: rgba(93, 64, 55, 0.9);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    background-color: rgba(139, 69, 19, 0.95);
+    color: #ffffff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
 }
 
 .blog-placeholder i {
     font-size: 4rem;
     color: #8b4513;
-    background: rgba(139, 69, 19, 0.1);
-    padding: 20px;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-.blog-placeholder i:hover {
-    transform: scale(1.1);
-    background: rgba(139, 69, 19, 0.2);
+    opacity: 0.7;
 }
 
 .blog-content {

@@ -21,16 +21,25 @@ document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling for navigation links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
+            const href = this.getAttribute('href');
             
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+            // If the link contains '../index.html', allow normal navigation
+            if (href.includes('../index.html') || href.startsWith('http') || href.startsWith('mailto')) {
+                return; // Allow default behavior
+            }
+            
+            // Only prevent default for same-page anchors
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(href);
+                
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 70;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
