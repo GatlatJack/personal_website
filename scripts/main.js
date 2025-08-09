@@ -220,8 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const text = subtitle.textContent;
         const typingTexts = [
             'Computer Science Student',
-            'Full Stack Developer', 
-            'Bioinformatics Researcher',
+            'Web Developer',
             'Problem Solver'
         ];
         let textIndex = 0;
