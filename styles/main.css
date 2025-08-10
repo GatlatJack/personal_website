@@ -819,7 +819,7 @@ section {
 }
 
 /* Special styling for bioinformatics blog card */
-.blog-card.bioinformatics-post .blog-placeholder {
+.blog-card.s-post .blog-placeholder {
     display: flex;
     background: transparent;
 }
