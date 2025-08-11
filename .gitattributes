@@ -1,4 +1,4 @@
-# Allow HTML to be detected but with lower weight
+# Control language detection and weights
 *.html linguist-detectable=true
 *.css linguist-detectable=true
 *.js linguist-detectable=true
@@ -9,14 +9,18 @@
 *.js linguist-language=JavaScript
 *.html linguist-language=HTML
 
-# Give higher priority to CSS and JS
-*.css linguist-language=CSS
-*.js linguist-language=JavaScript
+# Give CSS and JS files higher weight/priority
+*.css linguist-language=CSS linguist-detectable=true
+*.js linguist-language=JavaScript linguist-detectable=true
 
-# Highlight main codebase directories
+# Reduce HTML weight by excluding some HTML files from detection
+blog/*.html linguist-detectable=false
+*.html linguist-language=HTML
+
+# Highlight main codebase directories with higher priority
 styles/* linguist-detectable=true
 scripts/* linguist-detectable=true
 
-# Optional: Boost specific files if you want more JS/CSS weight
-scripts/*.js linguist-detectable=true
-styles/*.css linguist-detectable=true
+# Boost CSS and JS detection
+styles/*.css linguist-language=CSS
+scripts/*.js linguist-language=JavaScript
