@@ -1,0 +1,12 @@
+*.html linguist-detectable=false
+*.css linguist-detectable=true
+*.js linguist-detectable=true
+*.json linguist-detectable=true
+
+# Mark the main technologies
+*.css linguist-language=CSS
+*.js linguist-language=JavaScript
+
+# Highlight main codebase directories
+styles/* linguist-detectable=true
+scripts/* linguist-detectable=true
