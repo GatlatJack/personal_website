@@ -1,5 +1,4 @@
-# Control language detection and weights
-*.html linguist-detectable=true
+*.html linguist-detectable=false
 *.css linguist-detectable=true
 *.js linguist-detectable=true
 *.json linguist-detectable=true
@@ -7,20 +6,7 @@
 # Mark the main technologies
 *.css linguist-language=CSS
 *.js linguist-language=JavaScript
-*.html linguist-language=HTML
 
-# Give CSS and JS files higher weight/priority
-*.css linguist-language=CSS linguist-detectable=true
-*.js linguist-language=JavaScript linguist-detectable=true
-
-# Reduce HTML weight by excluding some HTML files from detection
-blog/*.html linguist-detectable=false
-*.html linguist-language=HTML
-
-# Highlight main codebase directories with higher priority
+# Highlight main codebase directories
 styles/* linguist-detectable=true
 scripts/* linguist-detectable=true
-
-# Boost CSS and JS detection
-styles/*.css linguist-language=CSS
-scripts/*.js linguist-language=JavaScript
