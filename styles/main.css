@@ -1562,3 +1562,7 @@ section {
         font-size: 0.9rem;
     }
 }
+.nav-menu .nav-link i {
+    font-size: 1.5em;   /* Increase as needed, e.g., 2em for even bigger */
+    vertical-align: middle;
+}
