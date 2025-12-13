@@ -138,6 +138,31 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add styles
         notification.style.cssText = `
             position: fixed;
+        // ---- Analytics (Google Analytics 4) ----
+        // Set your Measurement ID here or before this script loads:
+        // Option A: Replace the placeholder 'G-XXXXXXXXXX' below.
+        // Option B: Define window.GA_MEASUREMENT_ID in a small inline script in the HTML head.
+        (function initAnalytics() {
+            var MEASUREMENT_ID = window.GA_MEASUREMENT_ID || 'G-XXXXXXXXXX';
+            if (!MEASUREMENT_ID || MEASUREMENT_ID === 'G-XXXXXXXXXX') {
+                // Not configured yet; skip initialization to avoid errors
+                return;
+            }
+
+            // Load gtag.js
+            var gaScript = document.createElement('script');
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + MEASUREMENT_ID;
+            document.head.appendChild(gaScript);
+
+            // Initialize GA
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);} // eslint-disable-line no-inner-declarations
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', MEASUREMENT_ID);
+        })();
+
             top: 20px;
             right: 20px;
             padding: 15px 20px;
