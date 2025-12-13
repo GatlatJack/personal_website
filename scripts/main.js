@@ -104,6 +104,88 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })();
 
+    // Writings & Publications feed
+    (function initWritings() {
+        const grid = document.getElementById('writings-grid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        if (!grid) return;
+
+        fetch('data/writings.json')
+            .then(resp => resp.json())
+            .then(posts => renderWritings(posts))
+            .catch(() => {
+                grid.innerHTML = '<p style="opacity:0.7">Could not load writings right now.</p>';
+            });
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                fetch('data/writings.json')
+                    .then(resp => resp.json())
+                    .then(posts => {
+                        const filtered = filter === 'all' ? posts : posts.filter(p => (p.type || '').toLowerCase() === filter);
+                        renderWritings(filtered);
+                    })
+                    .catch(() => {
+                        grid.innerHTML = '<p style="opacity:0.7">Could not load writings right now.</p>';
+                    });
+            });
+        });
+
+        function renderWritings(posts) {
+            if (!Array.isArray(posts) || posts.length === 0) {
+                grid.innerHTML = '<p style="opacity:0.7">No writings yet. Add some in data/writings.json.</p>';
+                return;
+            }
+
+            const cards = posts
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .map(post => writingCard(post))
+                .join('');
+            grid.innerHTML = cards;
+        }
+
+        function writingCard(post) {
+            const title = post.title || 'Untitled';
+            const date = post.date || '';
+            const blurb = post.blurb || '';
+            const cover = post.cover || '';
+            const type = (post.type || '').toLowerCase();
+            const link = post.link || '#';
+
+            const typeColor = {
+                article: '#8b4513',
+                poetry: '#9b59b6',
+                story: '#2980b9',
+                comic: '#16a085',
+                book: '#d35400'
+            }[type] || '#8b4513';
+
+            const coverHtml = cover
+                ? `<div class="blog-image"><div class="blog-placeholder"><img src="${cover}" alt="${title}"></div><div class="blog-date">${date}</div></div>`
+                : `<div class="blog-image"><div class="blog-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:42px;color:${typeColor};"><i class="fas fa-book-open"></i></div><div class="blog-date">${date}</div></div>`;
+
+            return `
+                <article class="blog-card">
+                    ${coverHtml}
+                    <div class="blog-content">
+                        <h3>${title}</h3>
+                        <p>${blurb}</p>
+                        <div class="blog-tags">
+                            <span class="blog-tag" style="background:${typeColor}; color:white;">${post.type || 'writing'}</span>
+                        </div>
+                        <div class="blog-meta">
+                            <span class="read-time">${date}</span>
+                            ${link && link !== '#' ? `<a href="${link}" class="blog-link" target="_blank" rel="noopener noreferrer">Open</a>` : ''}
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+    })();
+
     // Inline Quick Post form (localStorage only)
     (function initQuickPostForm() {
         const form = document.getElementById('quick-post-form');
