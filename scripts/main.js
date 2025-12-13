@@ -1,8 +1,162 @@
+// ---- Analytics (Google Analytics 4) ----
+// Set your Measurement ID here or before this script loads:
+// Option A: Replace the placeholder 'G-ABC123XYZ' below.
+// Option B: Define window.GA_MEASUREMENT_ID in a small inline script in the HTML head.
+(function initAnalytics() {
+    var MEASUREMENT_ID = window.GA_MEASUREMENT_ID || 'G-ABC123XYZ';
+    if (!MEASUREMENT_ID || MEASUREMENT_ID === 'G-ABC123XYZ') {
+        // Not configured yet; skip initialization to avoid errors
+        return;
+    }
+
+    // Load gtag.js
+    var gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + MEASUREMENT_ID;
+    document.head.appendChild(gaScript);
+
+    // Initialize GA
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);} // eslint-disable-line no-inner-declarations
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', MEASUREMENT_ID);
+})();
+
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
+
+    // Quick Updates feed (renders posts from data/posts.json, no HTML editing needed)
+    (function initUpdatesFeed() {
+        const feed = document.getElementById('updates-feed');
+        if (!feed) return;
+
+        const isBlogPage = window.location.pathname.includes('/blog/');
+        const postsUrl = isBlogPage ? '../data/posts.json' : 'data/posts.json';
+
+        fetch(postsUrl)
+            .then(resp => resp.json())
+            .then(serverPosts => renderUpdates(mergeLocal(serverPosts)))
+            .catch(() => {
+                // Fallback to local only if server fetch fails
+                const local = mergeLocal([]);
+                if (local.length) {
+                    renderUpdates(local);
+                } else {
+                    feed.innerHTML = '<p style="opacity:0.7">Could not load updates right now.</p>';
+                }
+            });
+
+        function renderUpdates(posts) {
+            if (!Array.isArray(posts) || posts.length === 0) {
+                feed.innerHTML = '<p style="opacity:0.7">No updates yet. Add one in data/posts.json.</p>';
+                return;
+            }
+
+            const cards = posts
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .map(post => updateCard(post))
+                .join('');
+            feed.innerHTML = cards;
+        }
+
+        function updateCard(post) {
+            const title = post.title || 'Untitled';
+            const date = post.date || '';
+            const body = post.body || '';
+            const image = post.image || '';
+
+            const imageHtml = image
+                ? `<div class="blog-image"><div class="blog-placeholder"><img src="${image}" alt="${title}"></div><div class="blog-date">${date}</div></div>`
+                : `<div class="blog-image"><div class="blog-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:42px;color:#8b4513;"><i class="fas fa-bullhorn"></i></div><div class="blog-date">${date}</div></div>`;
+
+            return `
+                <article class="blog-card">
+                    ${imageHtml}
+                    <div class="blog-content">
+                        <h3>${title}</h3>
+                        <p>${body}</p>
+                        <div class="blog-meta">
+                            <span class="read-time">${date}</span>
+                        </div>
+                    </div>
+                </article>
+            `;
+        }
+
+        function mergeLocal(serverPosts) {
+            const localRaw = localStorage.getItem('quickPosts');
+            let localPosts = [];
+            try {
+                localPosts = JSON.parse(localRaw) || [];
+            } catch (e) {
+                localPosts = [];
+            }
+            // Mark local posts visually
+            const enhancedLocal = localPosts.map(p => ({
+                ...p,
+                title: p.title ? `${p.title} (local)` : 'Untitled (local)'
+            }));
+            return [...(serverPosts || []), ...enhancedLocal];
+        }
+    })();
+
+    // Inline Quick Post form (localStorage only)
+    (function initQuickPostForm() {
+        const form = document.getElementById('quick-post-form');
+        const feed = document.getElementById('updates-feed');
+        if (!form || !feed) return;
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = form.title.value.trim();
+            const date = form.date.value.trim();
+            const body = form.body.value.trim();
+            const image = form.image.value.trim();
+
+            if (!title || !date || !body) {
+                alert('Please fill in title, date, and body.');
+                return;
+            }
+
+            const newPost = { title, date, body, image };
+            const raw = localStorage.getItem('quickPosts');
+            let posts = [];
+            try {
+                posts = JSON.parse(raw) || [];
+            } catch (err) {
+                posts = [];
+            }
+            posts.push(newPost);
+            localStorage.setItem('quickPosts', JSON.stringify(posts));
+
+            // Prepend instantly
+            const card = document.createElement('div');
+            card.innerHTML = `
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <div class="blog-placeholder">
+                            ${image ? `<img src="${image}" alt="${title}">` : '<i class="fas fa-bullhorn" style="font-size:42px;color:#8b4513;"></i>'}
+                        </div>
+                        <div class="blog-date">${date}</div>
+                    </div>
+                    <div class="blog-content">
+                        <h3>${title} (local)</h3>
+                        <p>${body}</p>
+                        <div class="blog-meta">
+                            <span class="read-time">${date}</span>
+                        </div>
+                    </div>
+                </article>
+            `;
+            feed.prepend(card.firstElementChild);
+            form.reset();
+        });
+    })();
+    })();
 
     // Toggle mobile menu
     navToggle.addEventListener('click', function() {
@@ -138,31 +292,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add styles
         notification.style.cssText = `
             position: fixed;
-        // ---- Analytics (Google Analytics 4) ----
-        // Set your Measurement ID here or before this script loads:
-        // Option A: Replace the placeholder 'G-XXXXXXXXXX' below.
-        // Option B: Define window.GA_MEASUREMENT_ID in a small inline script in the HTML head.
-        (function initAnalytics() {
-            var MEASUREMENT_ID = window.GA_MEASUREMENT_ID || 'G-XXXXXXXXXX';
-            if (!MEASUREMENT_ID || MEASUREMENT_ID === 'G-XXXXXXXXXX') {
-                // Not configured yet; skip initialization to avoid errors
-                return;
-            }
-
-            // Load gtag.js
-            var gaScript = document.createElement('script');
-            gaScript.async = true;
-            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + MEASUREMENT_ID;
-            document.head.appendChild(gaScript);
-
-            // Initialize GA
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);} // eslint-disable-line no-inner-declarations
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', MEASUREMENT_ID);
-        })();
-
             top: 20px;
             right: 20px;
             padding: 15px 20px;
