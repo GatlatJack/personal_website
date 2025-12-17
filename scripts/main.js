@@ -611,4 +611,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Uncomment to enable theme toggle
     // createThemeToggle();
+
+    // Ancient Clock Animation
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours() % 12;
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const milliseconds = now.getMilliseconds();
+        
+        const hourDegrees = (hours * 30) + (minutes * 0.5);
+        const minuteDegrees = (minutes * 6) + (seconds * 0.1);
+        const secondDegrees = (seconds * 6) + (milliseconds * 0.006);
+        
+        const hourHand = document.querySelector('.hour-hand');
+        const minuteHand = document.querySelector('.minute-hand');
+        const secondHand = document.querySelector('.second-hand');
+        
+        if (hourHand) hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+        if (minuteHand) minuteHand.style.transform = `rotate(${minuteDegrees}deg)`;
+        if (secondHand) secondHand.style.transform = `rotate(${secondDegrees}deg)`;
+    }
+    
+    // Update clock immediately and then every 50ms for smooth animation
+    updateClock();
+    setInterval(updateClock, 50);
 });
