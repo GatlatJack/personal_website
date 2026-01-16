@@ -117,14 +117,14 @@ The contact form includes client-side validation and user feedback. To make it f
 ### Resume Download
 The portfolio includes integrated resume download functionality:
 - Download button in hero section and about section
-- PDF file: `assets/Gatlat_Deng_Bum_Resume.pdf`
+- PDF file: `assets/Gatlat_Deng_Bum_Resume_Final_1.pdf`
 - Accessible via direct download links throughout the site
 
 ### Resume Download
 The portfolio includes a "Download Resume" feature:
 - Currently uses a placeholder file in `/assets/`
 - Replace `resume-placeholder.txt` with your actual PDF resume
-- Name your PDF: `Gatlat_Deng_Bum_Resume.pdf`
+- Name your PDF: `Gatlat_Deng_Bum_Resume_Final_1.pdf`
 - A printable HTML template is provided in `/assets/resume-template.html`
 - You can print the HTML template to PDF or create your own professional resume
 
@@ -140,7 +140,7 @@ Gatlat/
 ├── assets/
 │   ├── Jack.png                 # Professional hero photo
 │   ├── dreams.gif               # Animated background overlay
-│   ├── Gatlat_Deng_Bum_Resume.pdf  # Downloadable resume
+│   ├── Gatlat_Deng_Bum_Resume_Final_1.pdf  # Downloadable resume
 │   ├── image.png                # McGill University logo
 │   ├── genedig.png              # Blog post image for bioinformatics content
 │   └── 1sem.png                 # Blog post image for McGill semester reflection
