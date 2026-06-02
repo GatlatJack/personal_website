@@ -29,79 +29,127 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Quick Updates feed (renders posts from data/posts.json, no HTML editing needed)
-    (function initUpdatesFeed() {
+    // Blog feed (renders posts from data/blog-posts.json)
+    (function initBlogFeed() {
+        const feed = document.getElementById('blog-feed');
+        if (!feed) return;
+
+        fetch('data/blog-posts.json')
+            .then(r => r.json())
+            .then(posts => {
+                posts.sort((a, b) => new Date(b.isoDate) - new Date(a.isoDate));
+                feed.innerHTML = posts.map(p => {
+                    const imgHtml = p.image
+                        ? `<img src="${p.image}" alt="${p.title}">`
+                        : `<i class="fas fa-heart"></i>`;
+                    const tags = (p.tags || []).map(t => `<span class="blog-tag">${t}</span>`).join('');
+                    return `
+                        <article class="blog-card ${p.class || ''}">
+                            <div class="blog-image">
+                                <div class="blog-placeholder">${imgHtml}</div>
+                                <div class="blog-date">${p.date}</div>
+                            </div>
+                            <div class="blog-content">
+                                <h3>${p.title}</h3>
+                                <p>${p.excerpt}</p>
+                                <div class="blog-tags">${tags}</div>
+                                <div class="blog-meta">
+                                    <span class="read-time">${p.readTime}</span>
+                                    <a href="${p.link}" class="blog-link">Read More</a>
+                                </div>
+                            </div>
+                        </article>`;
+                }).join('');
+            })
+            .catch(() => {
+                feed.innerHTML = '<p style="opacity:0.7">Could not load blog posts.</p>';
+            });
+    })();
+
+    // Quick Updates feed & composer
+    (function initUpdates() {
         const feed = document.getElementById('updates-feed');
         if (!feed) return;
 
-        const isBlogPage = window.location.pathname.includes('/blog/');
-        const postsUrl = isBlogPage ? '../data/posts.json' : 'data/posts.json';
+        let pendingImageBase64 = null;
 
-        fetch(postsUrl)
-            .then(resp => resp.json())
-            .then(serverPosts => renderUpdates(mergeLocal(serverPosts)))
-            .catch(() => {
-                // Fallback to local only if server fetch fails
-                const local = mergeLocal([]);
-                if (local.length) {
-                    renderUpdates(local);
-                } else {
-                    feed.innerHTML = '<p style="opacity:0.7">Could not load updates right now.</p>';
-                }
+        const imageInput = document.getElementById('post-image-input');
+        if (imageInput) {
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    pendingImageBase64 = e.target.result;
+                    const preview = document.getElementById('post-image-preview');
+                    const img = document.getElementById('post-preview-img');
+                    if (preview && img) { img.src = pendingImageBase64; preview.style.display = 'block'; }
+                };
+                reader.readAsDataURL(file);
             });
+        }
 
-        function renderUpdates(posts) {
-            if (!Array.isArray(posts) || posts.length === 0) {
-                feed.innerHTML = '<p style="opacity:0.7">No updates yet. Add one in data/posts.json.</p>';
+        window.clearImage = function() {
+            pendingImageBase64 = null;
+            const preview = document.getElementById('post-image-preview');
+            const input = document.getElementById('post-image-input');
+            if (preview) preview.style.display = 'none';
+            if (input) input.value = '';
+        };
+
+        window.submitPost = function() {
+            const textarea = document.getElementById('post-text');
+            const text = textarea ? textarea.value.trim() : '';
+            if (!text && !pendingImageBase64) return;
+            const post = {
+                id: Date.now(),
+                body: text,
+                image: pendingImageBase64 || null,
+                date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            };
+            const posts = loadPosts();
+            posts.unshift(post);
+            savePosts(posts);
+            if (textarea) textarea.value = '';
+            window.clearImage();
+            renderFeed(posts);
+        };
+
+        window.deletePost = function(id) {
+            const posts = loadPosts().filter(p => p.id !== id);
+            savePosts(posts);
+            renderFeed(posts);
+        };
+
+        function loadPosts() {
+            try { return JSON.parse(localStorage.getItem('quickPosts') || '[]'); }
+            catch(e) { return []; }
+        }
+
+        function savePosts(posts) {
+            localStorage.setItem('quickPosts', JSON.stringify(posts));
+        }
+
+        function renderFeed(posts) {
+            if (!posts.length) {
+                feed.innerHTML = '<p style="opacity:0.6; text-align:center; margin-top:10px;">No updates yet — share something above.</p>';
                 return;
             }
-
-            const cards = posts
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .map(post => updateCard(post))
-                .join('');
-            feed.innerHTML = cards;
-        }
-
-        function updateCard(post) {
-            const title = post.title || 'Untitled';
-            const date = post.date || '';
-            const body = post.body || '';
-            const image = post.image || '';
-
-            const imageHtml = image
-                ? `<div class="blog-image"><div class="blog-placeholder"><img src="${image}" alt="${title}"></div><div class="blog-date">${date}</div></div>`
-                : `<div class="blog-image"><div class="blog-placeholder" style="display:flex;align-items:center;justify-content:center;font-size:42px;color:#8b4513;"><i class="fas fa-bullhorn"></i></div><div class="blog-date">${date}</div></div>`;
-
-            return `
-                <article class="blog-card">
-                    ${imageHtml}
-                    <div class="blog-content">
-                        <h3>${title}</h3>
-                        <p>${body}</p>
-                        <div class="blog-meta">
-                            <span class="read-time">${date}</span>
+            feed.innerHTML = posts.map(p => `
+                <div style="background:#fff; border-radius:14px; box-shadow:0 2px 12px rgba(0,0,0,0.08); overflow:hidden;">
+                    ${p.image ? `<img src="${p.image}" alt="" style="width:100%; max-height:340px; object-fit:cover; display:block;">` : ''}
+                    <div style="padding:14px 16px;">
+                        ${p.body ? `<p style="margin:0 0 10px; font-size:0.97rem; color:#333; white-space:pre-wrap;">${p.body}</p>` : ''}
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:0.8rem; color:#999;">${p.date}</span>
+                            <button onclick="deletePost(${p.id})" style="background:none; border:none; color:#cc4444; cursor:pointer; font-size:0.8rem;">Delete</button>
                         </div>
                     </div>
-                </article>
-            `;
+                </div>
+            `).join('');
         }
 
-        function mergeLocal(serverPosts) {
-            const localRaw = localStorage.getItem('quickPosts');
-            let localPosts = [];
-            try {
-                localPosts = JSON.parse(localRaw) || [];
-            } catch (e) {
-                localPosts = [];
-            }
-            // Mark local posts visually
-            const enhancedLocal = localPosts.map(p => ({
-                ...p,
-                title: p.title ? `${p.title} (local)` : 'Untitled (local)'
-            }));
-            return [...(serverPosts || []), ...enhancedLocal];
-        }
+        renderFeed(loadPosts());
     })();
 
     // Writings & Publications feed
@@ -186,59 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })();
 
-    // Inline Quick Post form (localStorage only)
-    (function initQuickPostForm() {
-        const form = document.getElementById('quick-post-form');
-        const feed = document.getElementById('updates-feed');
-        if (!form || !feed) return;
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const title = form.title.value.trim();
-            const date = form.date.value.trim();
-            const body = form.body.value.trim();
-            const image = form.image.value.trim();
-
-            if (!title || !date || !body) {
-                alert('Please fill in title, date, and body.');
-                return;
-            }
-
-            const newPost = { title, date, body, image };
-            const raw = localStorage.getItem('quickPosts');
-            let posts = [];
-            try {
-                posts = JSON.parse(raw) || [];
-            } catch (err) {
-                posts = [];
-            }
-            posts.push(newPost);
-            localStorage.setItem('quickPosts', JSON.stringify(posts));
-
-            // Prepend instantly
-            const card = document.createElement('div');
-            card.innerHTML = `
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <div class="blog-placeholder">
-                            ${image ? `<img src="${image}" alt="${title}">` : '<i class="fas fa-bullhorn" style="font-size:42px;color:#8b4513;"></i>'}
-                        </div>
-                        <div class="blog-date">${date}</div>
-                    </div>
-                    <div class="blog-content">
-                        <h3>${title} (local)</h3>
-                        <p>${body}</p>
-                        <div class="blog-meta">
-                            <span class="read-time">${date}</span>
-                        </div>
-                    </div>
-                </article>
-            `;
-            feed.prepend(card.firstElementChild);
-            form.reset();
-        });
-    })();
-    })();
 
     // Toggle mobile menu
     navToggle.addEventListener('click', function() {
