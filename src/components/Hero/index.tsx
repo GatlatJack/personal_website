@@ -1,7 +1,7 @@
 import Clock from './Clock'
 import chalkboardGif from '../../assets/Cwgf.gif'
 import personGif from '../../assets/5TMy.gif'
-import jackPhoto from '../../assets/Mimi.jpeg'
+import jackPhoto from '../../assets/Galat.jpeg'
 
 const socials = [
   {
@@ -135,10 +135,10 @@ export default function Hero() {
             height: '96px',
             borderRadius: '50%',
             overflow: 'hidden',
-            border: '2px solid rgba(255,255,255,0.25)',
+            border: '2.5px solid rgba(255,255,255,0.55)',
             marginBottom: '1.25rem',
           }}>
-            <img src={jackPhoto} alt="Gatlat" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', transform: 'scale(2.2)', transformOrigin: '50% 20%' }} />
+            <img src={jackPhoto} alt="Gatlat" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', transform: 'scale(2.4)', transformOrigin: '50% 25%' }} />
           </div>
 
           <h1
