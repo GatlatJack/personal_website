@@ -23,12 +23,12 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-24 px-6 section-top"
+      className="py-24 px-6 section-top section-pad"
     >
       <div style={{ maxWidth: '1100px', margin: '0 auto', width: '100%' }}>
         <SectionHeading>Skills</SectionHeading>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
+        <div className="skills-grid">
           {groups.map(({ label, skills }) => (
             <div
               key={label}

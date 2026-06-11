@@ -17,7 +17,7 @@ export default function Work() {
   return (
     <section
       id="work"
-      className="section-top"
+      className="section-top section-pad"
       style={{ padding: '6rem 1.5rem' }}
     >
       <div style={{ maxWidth: '860px', margin: '0 auto', width: '100%' }}>
@@ -28,7 +28,7 @@ export default function Work() {
             <div key={p.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem' }}>
 
               {/* Circle */}
-              <div style={{
+              <div className="entry-dot" style={{
                 width: '22px',
                 height: '22px',
                 borderRadius: '50%',

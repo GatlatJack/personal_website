@@ -114,7 +114,7 @@ export default function Hero() {
       <div style={{ position: 'absolute', bottom: 0, left: '8%', right: '8%', height: '1px', background: 'linear-gradient(to right, transparent, rgba(211,205,190,0.55) 25%, rgba(211,205,190,0.55) 75%, transparent)', pointerEvents: 'none' }} />
 
       {/* Content */}
-      <div style={{
+      <div className="hero-content" style={{
         position: 'relative',
         zIndex: 1,
         maxWidth: '1100px',

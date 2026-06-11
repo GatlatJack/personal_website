@@ -90,3 +90,46 @@ img { display: block; max-width: 100%; }
   height: 1px;
   background: linear-gradient(to right, transparent, var(--color-line) 25%, var(--color-line) 75%, transparent);
 }
+
+/* ── Skills grid: 4 cols → 2 → 1 ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 900px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Entry cards: reduce padding on mobile ── */
+@media (max-width: 640px) {
+  .skill-card {
+    padding: 1.25rem 1.25rem !important;
+  }
+  /* Hide the timeline circle dot on mobile to give more card width */
+  .entry-dot {
+    display: none !important;
+  }
+}
+
+/* ── Hero: reduce vertical padding on mobile ── */
+@media (max-width: 640px) {
+  .hero-content {
+    padding: 3rem 1.25rem !important;
+  }
+}
+
+/* ── Sections: reduce vertical padding on mobile ── */
+@media (max-width: 640px) {
+  .section-pad {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+}

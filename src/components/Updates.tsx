@@ -187,7 +187,7 @@ export default function Updates() {
   return (
     <section
       id="updates"
-      className="section-top"
+      className="section-top section-pad"
       style={{ padding: '6rem 1.5rem' }}
     >
       <div style={{ maxWidth: '860px', margin: '0 auto', width: '100%' }}>

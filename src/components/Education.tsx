@@ -48,7 +48,7 @@ const extraEntries = [
 function EntryCard({ e }: { e: typeof mainEntry }) {
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem' }}>
-      <div style={{
+      <div className="entry-dot" style={{
         width: '22px',
         height: '22px',
         borderRadius: '50%',
@@ -95,7 +95,7 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="section-top"
+      className="section-top section-pad"
       style={{ padding: '6rem 1.5rem' }}
     >
       <div style={{ maxWidth: '860px', margin: '0 auto', width: '100%' }}>
