@@ -187,8 +187,8 @@ export default function Hero() {
                 aria-label={label}
                 className="social-icon"
                 style={{
-                  width: '38px',
-                  height: '38px',
+                  width: '44px',
+                  height: '44px',
                   borderRadius: '50%',
                   border: '1px solid rgba(255,255,255,0.2)',
                   color: 'rgba(255,255,255,0.55)',

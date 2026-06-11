@@ -96,7 +96,8 @@ export default function Nav() {
           </button>
 
           <button
-            className="md:hidden p-2"
+            className="md:hidden"
+            style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
             style={{ color: 'var(--color-muted)' }}

@@ -61,8 +61,8 @@ export default function Footer() {
               aria-label={label}
               className="social-icon"
               style={{
-                width: '38px',
-                height: '38px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '50%',
                 border: '1px solid var(--color-line)',
                 color: 'var(--color-muted)',
