@@ -114,17 +114,13 @@ export default function Hero() {
       <div style={{ position: 'absolute', bottom: 0, left: '8%', right: '8%', height: '1px', background: 'linear-gradient(to right, transparent, rgba(211,205,190,0.55) 25%, rgba(211,205,190,0.55) 75%, transparent)', pointerEvents: 'none' }} />
 
       {/* Content */}
-      <div className="hero-content" style={{
+      <div className="hero-content hero-layout" style={{
         position: 'relative',
         zIndex: 1,
         maxWidth: '1100px',
         margin: '0 auto',
         width: '100%',
         padding: '5rem 2.5rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '2rem',
       }}>
 
         {/* Left: text */}
@@ -225,10 +221,7 @@ export default function Hero() {
         </div>
 
         {/* Right: clock */}
-        <div
-          style={{ flexShrink: 0, opacity: 0.92 }}
-          className="hidden md:block"
-        >
+        <div className="hero-clock" style={{ flexShrink: 0, opacity: 0.92 }}>
           <Clock />
         </div>
       </div>

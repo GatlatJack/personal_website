@@ -141,6 +141,27 @@ img { display: block; max-width: 100%; }
   }
 }
 
+/* ── Hero layout: side-by-side → stacked on mobile ── */
+.hero-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+@media (max-width: 768px) {
+  .hero-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .hero-clock {
+    align-self: center;
+    transform: scale(0.75);
+    transform-origin: center top;
+    margin-bottom: -1.5rem;
+  }
+}
+
 /* ── Mobile bottom nav ── */
 .mobile-bottom-nav {
   display: none;
