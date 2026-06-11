@@ -19,9 +19,9 @@ export const jobs: Project[] = [
     year: 'May 2026 – Present',
     description: '',
     bullets: [
-      'Co-built Enzygent (enzygent.app) for Dr. Brian Chen\'s lab at the Research Institute of the McGill University Health Centre (RI-MUHC) — a hypothesis-generating SMILES-input tool that matches molecular transformations against 28,000+ RetroRules templates across all 7 EC classes, returning enzyme class suggestions with evidence labels and UniProt-sourced candidate proteins.',
-      'Led server deployment and DevOps: configured Cloudflare Tunnel routing production traffic to a local server; curated the core data layer — enzyme classes, candidate proteins, benchmark pairs, and the scientific guardrails and evidence-label documentation.',
-      'Contributed across both frontend (Next.js) and backend (FastAPI/Python) with a partner; co-developing the Enzygent Design Studio — a 10-week de novo enzyme design module — covering governance workflows, reviewer dashboards, 3D structure visualization (Mol*), and evidence-tracking.',
+      'Co-built Enzygent (enzygent.app) for Dr. Brian Chen\'s lab at RI-MUHC — a hypothesis-generating platform that takes a SMILES input and fuses three layers of biochemical evidence (RetroRules, RHEA, and a third curated source) to predict candidate enzyme classes and UniProt proteins; the broader goal mirrors AlphaFold\'s approach to structure: use multi-layer evidence + ML to de novo predict enzymes for novel reactions.',
+      'Led server deployment and DevOps: configured Cloudflare Tunnel routing production traffic to a local server; curated the core data layer — enzyme classes, candidate proteins, benchmark pairs, and evidence-label documentation.',
+      'Contributed across frontend (Next.js) and backend (FastAPI/Python); co-developing the Enzygent Design Studio — a de novo enzyme design module covering governance workflows, reviewer dashboards, 3D structure visualization (Mol*), and evidence-tracking.',
     ],
     tech: ['Next.js', 'FastAPI', 'Python', 'RDKit', 'RetroRules', 'SQLite', 'TailwindCSS', 'Mol*', 'Cloudflare Tunnel'],
     links: [{ label: 'Live', url: 'https://enzygent.app' }],
