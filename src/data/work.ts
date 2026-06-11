@@ -53,8 +53,8 @@ export const projects: Project[] = [
     year: 'Mar 2026 – Apr 2026',
     description: '',
     bullets: [
-      'Co-built an agentic employee-onboarding platform end-to-end in a weekend hackathon — finalist, top 5 of 16 teams at the McGill Data Network Hackathon.',
-      'Shipped a working product under hackathon time pressure using Next.js 16 and the Vercel AI SDK (Gemini), prioritizing a demoable end-to-end flow over feature breadth.',
+      'Co-built an agentic employee-onboarding platform end-to-end in a single afternoon sprint — finalist, top 5 of 16 teams at the McGill Data Network Hackathon.',
+      'Shipped a working product under extreme time pressure using Next.js 16 and the Vercel AI SDK (Gemini), prioritizing a demoable end-to-end flow over feature breadth.',
       'Designed agentic workflows that automated access provisioning and generated personalized intro emails for new hires.',
       'Architected a RAG pipeline so new hires could get context-aware answers from internal docs instead of hunting through wikis.',
     ],
