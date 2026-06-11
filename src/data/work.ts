@@ -19,9 +19,10 @@ export const jobs: Project[] = [
     year: 'May 2026 – Present',
     description: '',
     bullets: [
-      'Co-built Enzygent (enzygent.app) for Dr. Brian Chen\'s lab at RI-MUHC — a hypothesis-generating platform that takes a SMILES input and cross-references three layers of biochemical evidence: RetroRules (SMARTS, what\'s plausible), ExPASy enzyme catalog (what\'s known at the class level), and Rhea (6,500+ lab-validated reactions, what\'s directly documented) — to predict candidate enzyme classes and UniProt proteins; the broader vision mirrors AlphaFold: use multi-layer evidence + ML to de novo predict enzymes for novel reactions.',
-      'Led server deployment and DevOps: configured Cloudflare Tunnel routing production traffic to a local server; curated the core data layer — enzyme classes, candidate proteins, benchmark pairs, and evidence-label documentation.',
-      'Contributed across frontend (Next.js) and backend (FastAPI/Python); co-developing the Enzygent Design Studio — a de novo enzyme design module covering governance workflows, reviewer dashboards, 3D structure visualization (Mol*), and evidence-tracking.',
+      'Co-built Enzygent (enzygent.app), a production platform for Dr. Brian Chen\'s lab at RI-MUHC that predicts candidate enzyme classes and UniProt proteins from a SMILES input, cross-referencing three layers of biochemical evidence — RetroRules, the ExPASy enzyme catalog, and 6,500+ lab-validated Rhea reactions.',
+      'Owned deployment end-to-end: stood up production infrastructure with Cloudflare Tunnel routing live traffic to a self-hosted server, and built the core data layer — enzyme classes, candidate proteins, benchmark pairs, and evidence documentation.',
+      'Built across the stack — Next.js frontend, FastAPI/Python backend — and co-developed the Design Studio module: governance workflows, reviewer dashboards, and interactive 3D protein visualization with Mol*.',
+      'Extending toward de novo enzyme prediction for novel reactions — combining multi-layer evidence with ML, in the spirit of AlphaFold\'s approach to structure prediction.',
     ],
     tech: ['Next.js', 'FastAPI', 'Python', 'RDKit', 'RetroRules', 'SQLite', 'TailwindCSS', 'Mol*', 'Cloudflare Tunnel'],
     links: [{ label: 'Live', url: 'https://enzygent.app' }],

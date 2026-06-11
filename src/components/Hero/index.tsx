@@ -168,7 +168,7 @@ export default function Hero() {
             maxWidth: '440px',
             textShadow: '0 1px 8px rgba(0,0,0,0.6)',
           }}>
-            I build web apps and tools for startups, researchers, and small businesses.
+            Full-stack developer building production platforms and ML tooling. Currently engineering a hypothesis-generation system for a McGill research lab.
             2 RI-MUHC internships · Top 5/16 MDN Hackathon.
           </p>
 
