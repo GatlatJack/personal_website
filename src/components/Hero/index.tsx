@@ -138,7 +138,7 @@ export default function Hero() {
             border: '2px solid rgba(255,255,255,0.18)',
             marginBottom: '1.25rem',
           }}>
-            <img src={jackPhoto} alt="Gatlat" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+            <img src={jackPhoto} alt="Gatlat" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', transform: 'scale(1.6)', transformOrigin: '50% 12%' }} />
           </div>
 
           <h1
