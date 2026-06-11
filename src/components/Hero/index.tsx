@@ -131,14 +131,14 @@ export default function Hero() {
         <div style={{ flex: 1, maxWidth: '540px' }}>
           {/* Profile photo */}
           <div style={{
-            width: '72px',
-            height: '72px',
+            width: '96px',
+            height: '96px',
             borderRadius: '50%',
             overflow: 'hidden',
-            border: '2px solid rgba(255,255,255,0.18)',
+            border: '2px solid rgba(255,255,255,0.25)',
             marginBottom: '1.25rem',
           }}>
-            <img src={jackPhoto} alt="Gatlat" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', transform: 'scale(1.6)', transformOrigin: '50% 12%' }} />
+            <img src={jackPhoto} alt="Gatlat" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', transform: 'scale(2.8)', transformOrigin: '50% 22%' }} />
           </div>
 
           <h1
