@@ -1,7 +1,7 @@
 import Clock from './Clock'
 import chalkboardGif from '../../assets/Cwgf.gif'
 import personGif from '../../assets/5TMy.gif'
-import jackPhoto from '../../assets/Jack.png'
+import jackPhoto from '../../assets/photo.jpeg'
 
 const socials = [
   {
