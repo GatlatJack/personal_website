@@ -58,6 +58,7 @@ const BOOKS: Book[] = [
 ]
 
 const STATIC_PHOTOS: Photo[] = [
+  { id: 'mimi',    src: '/assets/Mimi.jpeg'   },
   { id: 'soccer',  src: '/assets/soccer.png'  },
   { id: 'soccer2', src: '/assets/soccer2.png' },
   { id: 'story',   src: '/assets/story.png'   },
