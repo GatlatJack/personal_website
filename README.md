@@ -73,9 +73,8 @@ absolute path (`/assets/…`) resolve identically in dev and in the build.
 ## Deployment
 
 Pushing to `main` triggers [.github/workflows/deploy.yml](.github/workflows/deploy.yml),
-which runs `vite build`, then `prerender.mjs`, then publishes `dist/` to GitHub Pages.
-The custom domain survives each deploy via `public/CNAME`.
+which lints, typechecks, builds, prerenders, and publishes `dist/` to GitHub Pages. The
+custom domain survives each deploy via `public/CNAME`.
 
-One gap worth knowing: the workflow calls `npx vite build` directly rather than
-`npm run build`, which means it skips the `tsc -b` typecheck. Type errors will not fail
-the deploy — run `npm run build` locally before pushing.
+Because the workflow runs `npm run build` (which is `tsc -b && vite build`) rather than
+`vite build` alone, a type error or lint error fails the deploy instead of shipping.

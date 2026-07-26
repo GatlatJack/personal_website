@@ -1,16 +1,28 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useSyncExternalStore } from 'react'
+
+const pad = (n: number) => String(n).padStart(2, '0')
+
+function subscribe(onChange: () => void) {
+  // Poll faster than 1s so the display turns over close to the second boundary.
+  const id = setInterval(onChange, 250)
+  return () => clearInterval(id)
+}
+
+function getSnapshot() {
+  const d = new Date()
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
+}
+
+// The prerender runs on a build machine in another timezone. Serving placeholder
+// digits keeps the static HTML from disagreeing with the browser on hydration.
+const getServerSnapshot = () => '--:--:--'
 
 export default function Clock() {
-  const [time, setTime] = useState(new Date())
-
-  useEffect(() => {
-    const id = setInterval(() => setTime(new Date()), 1000)
-    return () => clearInterval(id)
-  }, [])
-
-  const h = String(time.getHours()).padStart(2, '0')
-  const m = String(time.getMinutes()).padStart(2, '0')
-  const s = String(time.getSeconds()).padStart(2, '0')
+  const [h, m, s] = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  ).split(':')
 
   return (
     <div style={{

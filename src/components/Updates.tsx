@@ -59,12 +59,12 @@ const BOOKS: Book[] = [
 
 const STATIC_PHOTOS: Photo[] = [
   { id: 'mimi',    src: '/assets/Mimi.jpeg'   },
-  { id: 'soccer',  src: '/assets/soccer.png'  },
-  { id: 'soccer2', src: '/assets/soccer2.png' },
-  { id: 'story',   src: '/assets/story.png'   },
-  { id: 'story1',  src: '/assets/story1.png'  },
-  { id: 'me',      src: '/assets/me.png'      },
-  { id: '1sem',    src: '/assets/1sem.png'    },
+  { id: 'soccer',  src: '/assets/soccer.jpg'  },
+  { id: 'soccer2', src: '/assets/soccer2.jpg' },
+  { id: 'story',   src: '/assets/story.jpg'   },
+  { id: 'story1',  src: '/assets/story1.jpg'  },
+  { id: 'me',      src: '/assets/me.jpg'      },
+  { id: '1sem',    src: '/assets/1sem.jpg'    },
 ]
 
 function PhotoCard({ src }: { src: string }) {
@@ -170,17 +170,20 @@ export default function Updates() {
   const [tab, setTab] = useState<'photos' | 'books'>('photos')
   const [extras, setExtras] = useState<Photo[]>([])
 
+  // localStorage doesn't exist during the prerender, so this has to wait for mount.
   useEffect(() => {
+    let dynamic: Photo[]
     try {
       const raw = localStorage.getItem('quickPosts')
       const posts = raw ? JSON.parse(raw) : []
-      const dynamic: Photo[] = posts
+      dynamic = posts
         .filter((p: { image?: string }) => p.image)
         .map((p: { id: number; image: string }) => ({ id: String(p.id), src: p.image }))
-      setExtras(dynamic)
     } catch {
-      setExtras([])
+      dynamic = []
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setExtras(dynamic)
   }, [])
 
   const photos = [...extras, ...STATIC_PHOTOS]
