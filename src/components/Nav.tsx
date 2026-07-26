@@ -97,10 +97,9 @@ export default function Nav() {
 
           <button
             className="md:hidden"
-            style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            style={{ width: '44px', height: '44px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-muted)' }}
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
-            style={{ color: 'var(--color-muted)' }}
           >
             <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
               <rect y="0" width="18" height="1.5" rx="0.75" fill="currentColor"/>
