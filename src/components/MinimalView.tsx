@@ -108,7 +108,7 @@ export default function MinimalView() {
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}
                 >
                   {link.label === 'GitHub' ? <GitHubIcon /> : <ExternalIcon />}
-                  {link.label === 'GitHub' ? 'View Code' : link.label === 'Live' ? 'Live Demo' : 'Visit Site'}
+                  {link.label === 'GitHub' ? 'View Code' : link.label === 'Live' ? 'Live Demo' : link.label === 'Site' ? 'Visit Site' : link.label}
                 </a>
               ))}
             </div>
@@ -147,7 +147,7 @@ export default function MinimalView() {
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--color-muted)'}
                 >
                   {link.label === 'GitHub' ? <GitHubIcon /> : <ExternalIcon />}
-                  {link.label === 'GitHub' ? 'View Code' : link.label === 'Live' ? 'Live Demo' : 'Visit Site'}
+                  {link.label === 'GitHub' ? 'View Code' : link.label === 'Live' ? 'Live Demo' : link.label === 'Site' ? 'Visit Site' : link.label}
                 </a>
               ))}
             </div>

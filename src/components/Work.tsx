@@ -109,7 +109,7 @@ export default function Work() {
                           onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-line)' }}
                         >
                           {isGitHub ? <GitHubIcon /> : <ExternalIcon />}
-                          {isGitHub ? 'View Code' : link.label === 'Live' ? 'Live Demo' : 'Visit Site'}
+                          {isGitHub ? 'View Code' : link.label === 'Live' ? 'Live Demo' : link.label === 'Site' ? 'Visit Site' : link.label}
                         </a>
                       )
                     })}

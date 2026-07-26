@@ -168,8 +168,9 @@ export default function Hero() {
             maxWidth: '440px',
             textShadow: '0 1px 8px rgba(0,0,0,0.6)',
           }}>
-            Full-stack developer building production platforms and ML tooling. Currently engineering a hypothesis-generation system for a McGill research lab.
-            2 RI-MUHC internships · Top 5/16 MDN Hackathon.
+            First-generation student and developer. For two summers I've been working
+            under Dr. Brian Chen at the McGill University Health Centre, on the web
+            side of two of his lab's projects.
           </p>
 
           {/* Social icons */}
