@@ -1,45 +1,81 @@
-# gatlat.com — Personal Portfolio
+# gatlat.com
 
-Personal portfolio for **Gatlat Deng Bum**, Computer Science & Psychology at McGill University. Live at [gatlat.com](https://gatlat.com).
+Personal portfolio for **Gatlat Deng Bum** — Computer Science & Psychology at McGill University.
+Live at **[gatlat.com](https://gatlat.com)**.
+
+![The portfolio homepage: a chalkboard hero with a live local clock](docs/screenshot-hero.png)
+
+A single-page React site with two reading modes: the full visual layout above, and a
+stripped-down **Minimal** mode that renders the same content as a single-column CV for
+anyone who just wants the facts.
+
+<table>
+<tr>
+<td width="62%"><img src="docs/screenshot-full.png" alt="Full page scroll: work, projects, skills, education, updates"></td>
+<td width="38%"><img src="docs/screenshot-mobile.png" alt="Mobile layout at 390px wide"></td>
+</tr>
+<tr>
+<td align="center"><em>Full page</em></td>
+<td align="center"><em>Mobile (390px)</em></td>
+</tr>
+</table>
 
 ## Stack
 
-- **React 19** + **TypeScript**
-- **Vite 8** (build tool)
-- **Tailwind CSS v4** (utility classes)
-- **DM Mono** (font — display + body)
-- Deployed via **GitHub Actions** → **GitHub Pages**
+React 19 and TypeScript, built with Vite 8 and styled with Tailwind CSS v4. Animations
+use Framer Motion; the display and body font is DM Mono throughout. GitHub Actions builds
+and deploys to GitHub Pages on every push to `main`.
 
-## Sections
+There is no runtime backend — content lives in [src/data/work.ts](src/data/work.ts) as
+typed objects, so adding a job or project means editing one array rather than touching
+any markup.
 
-| Section | Description |
-|---|---|
-| Hero | Chalkboard GIF background, animated person overlay, profile photo, live clock |
-| Work | Enzygent (AI drug discovery), Genedig (genomics platform) — both RI-MUHC internships |
-| Projects | DNA Sequence Alignment, Medical Diagnostic AI, and more |
-| Skills | Languages, Frameworks, Infrastructure, Tools |
-| Education | McGill University, WUSC-SRP Scholarship, Windle International |
-| Updates | Photos + Top Books (collapsible, tabbed) |
+## Prerendering
 
-## Features
+GitHub Pages serves static files, but a plain Vite SPA ships an empty `<div id="root">` —
+so crawlers, link unfurlers, and anything that doesn't run JavaScript see a blank page.
+[prerender.mjs](prerender.mjs) fixes that at build time: it does a second SSR build of
+[src/entry-server.tsx](src/entry-server.tsx), renders the app to an HTML string, injects
+it into `dist/index.html`, and deletes the SSR artifacts. The result is a static file with
+real content in it, which React then hydrates.
 
-- **Minimal mode** — toggles a single-column CV layout via React Context
-- **Responsive** — mobile nav (hamburger), responsive skills grid, reduced padding on small screens
-- **Gradient section dividers** — fade in/out at edges
-- **Hero edge fades** — smooth top/bottom transition into page background
-- **Custom favicon** — rust-red "G" SVG icon
-
-## Local Development
+## Local development
 
 ```bash
 npm install
-npm run dev
+npm run dev          # dev server with HMR
 ```
+
+To check what actually deploys — including the prerendered HTML, which `npm run dev`
+does not produce:
+
+```bash
+npm run build        # tsc -b && vite build
+node prerender.mjs   # inject SSR HTML into dist/index.html
+npm run preview      # serve dist/ at localhost:4173
+```
+
+## Layout
+
+```
+src/
+  components/     Nav, Hero, Work, Projects, Skills, Education, Updates, Footer
+  context/        view mode (full ↔ minimal)
+  data/work.ts    all job and project content
+  entry-server.tsx  SSR entry used only by prerender.mjs
+assets/           images and the resume PDF, symlinked into public/
+docs/             the screenshots in this README
+```
+
+`public/assets` is a symlink to the top-level `assets/` directory, so files referenced by
+absolute path (`/assets/…`) resolve identically in dev and in the build.
 
 ## Deployment
 
-Pushes to `main` automatically trigger the GitHub Actions workflow (`.github/workflows/deploy.yml`), which builds with `npx vite build` and deploys to GitHub Pages. Custom domain is preserved via `public/CNAME`.
+Pushing to `main` triggers [.github/workflows/deploy.yml](.github/workflows/deploy.yml),
+which runs `vite build`, then `prerender.mjs`, then publishes `dist/` to GitHub Pages.
+The custom domain survives each deploy via `public/CNAME`.
 
-## Assets
-
-Profile photo and GIF backgrounds live in `src/assets/`. Static photos for the Updates section are served from `public/assets/`.
+One gap worth knowing: the workflow calls `npx vite build` directly rather than
+`npm run build`, which means it skips the `tsc -b` typecheck. Type errors will not fail
+the deploy — run `npm run build` locally before pushing.
