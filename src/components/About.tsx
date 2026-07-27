@@ -27,17 +27,18 @@ export default function About() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', textAlign: 'center', color: 'var(--color-muted)', lineHeight: 1.75 }}>
           <p>
-            I build web apps and tools for startups, researchers, and small businesses.
-            Whether you need a landing page, a data dashboard, a REST API, or a full-stack
-            web application — I can take it from idea to live deployment.
+            I started out in a research lab, debugging a legacy platform I'd never seen
+            before. Now I run one in production on hospital hardware — the server, the
+            deploys, and the interface on top of it. Where I'm headed is cloud
+            engineering: building systems that scale.
           </p>
           <p>
-            For two consecutive summers I've worked as a web developer at the{' '}
+            I work as a web developer at the{' '}
             <span style={{ color: 'var(--color-ink)', fontWeight: 500 }}>
               Research Institute of the McGill University Health Centre (RI-MUHC)
             </span>
-            , Dr. Brian Chen's lab, under Canada Summer Jobs — first on Genedig's
-            PHP/JavaScript platform, currently building{' '}
+            , Dr. Brian Chen's lab — first on Genedig's PHP/JavaScript platform,
+            currently building{' '}
             <a
               href="https://enzygent.app"
               target="_blank"
