@@ -137,19 +137,6 @@ export default function Hero() {
             <img src={jackPhoto} alt="Gatlat" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', transform: 'scale(2.4)', transformOrigin: '42% 58%' }} />
           </div>
 
-          <h1
-            style={{
-              fontSize: 'clamp(2.6rem, 6vw, 4.8rem)',
-              fontWeight: 700,
-              lineHeight: 1.1,
-              color: '#fff',
-              marginBottom: '0.6rem',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            I'm <span style={{ color: 'var(--color-accent)' }}>Gatlat</span>
-          </h1>
-
           <p style={{
             fontSize: '1.05rem',
             color: 'rgba(255,255,255,0.88)',
@@ -160,17 +147,27 @@ export default function Hero() {
             Computer Science &amp; Psychology at McGill
           </p>
 
-          <p style={{
-            fontSize: '0.95rem',
-            color: 'rgba(255,255,255,0.76)',
-            lineHeight: 1.75,
-            marginBottom: '2rem',
-            maxWidth: '440px',
-            textShadow: '0 1px 8px rgba(0,0,0,0.6)',
-          }}>
-            “There are more things in heaven and earth, Horatio, than are dreamt of
-            in your philosophy.”
-          </p>
+          <figure style={{ margin: '0 0 2rem', maxWidth: '440px' }}>
+            <blockquote style={{
+              fontSize: '0.95rem',
+              color: 'rgba(255,255,255,0.76)',
+              lineHeight: 1.75,
+              margin: 0,
+              textShadow: '0 1px 8px rgba(0,0,0,0.6)',
+            }}>
+              “There are more things in heaven and earth, Horatio, than are dreamt of
+              in your philosophy.”
+            </blockquote>
+            <figcaption style={{
+              marginTop: '0.5rem',
+              fontSize: '0.78rem',
+              color: 'rgba(255,255,255,0.58)',
+              textShadow: '0 1px 8px rgba(0,0,0,0.6)',
+            }}>
+              Shakespeare, <span style={{ fontStyle: 'italic' }}>Hamlet</span> — epigraph to
+              Leonard Susskind’s <span style={{ fontStyle: 'italic' }}>The Black Hole War</span>
+            </figcaption>
+          </figure>
 
           {/* Social icons */}
           <div style={{ display: 'flex', gap: '0.55rem', marginBottom: '2rem' }}>
