@@ -19,13 +19,11 @@ export const jobs: Project[] = [
     year: 'May 2026 – Present',
     description: '',
     bullets: [
-      'A retrobiosynthesis and enzyme design platform. Given a starting molecule and a target, it searches curated reaction databases for an enzyme already known to catalyze that transformation, and where none exists, generates candidate protein sequences for it.',
-      'Built the FIND engine: a chemistry matcher running Rhea and RetroRules in parallel with tiered precedence, behind a confidence gate that classifies every match as documented, lead, rule, or predict. An atom-balance and EC-consistency gate rejects matches whose enzyme class contradicts the net atomic change, and multi-step pathway search resolves single-intermediate routes with an identity guard. Gate thresholds tuned against a held-out benchmark harness rather than by hand.',
-      'Built the Design Studio for de novo design: magic-link and JWT authentication, Postgres-backed governance with sign-off from a second researcher, RFdiffusion and ProteinMPNN adapters behind feature flags on GPU endpoints, ESMFold fold-back for predicted structures, synchronized dual 3D viewers for candidate comparison, and a local-alignment homology screener gating every generated sequence.',
-      'Run the production server on lab hardware: three systemd units under an unprivileged account with the backend bound to loopback, fronted by a Cloudflare named tunnel that dials outward, since the hospital network blocks inbound connections and the address has to survive the machine relocating. Reboot-tested, with a runbook so the lab can operate it independently.',
-      'Debugged production at the layer the failure actually lived in — WAL journaling to end lock contention between a long index warmup read and concurrent writes, provisioning the EC/Rhea catalog on a box where the gitignored one-time import had never run, RDKit charge normalization after neutral user input silently failed to match charged physiological forms, and CORS headers on 500 responses so the browser surfaced real exceptions instead of "failed to fetch".',
-      'Designed the interface and froze it into design tokens and a shared component kit, then rebuilt the prediction screen, results page, history, and internal tools on it — answer-first results, a pathway diagram, collapsible evidence sections, and colour-coded tags that always carry a written label.',
-      'Set up GitHub Actions CI running frontend builds and backend lint and tests on every push.',
+      'A retrobiosynthesis and enzyme design platform: given a starting molecule and a target, it searches curated reaction databases for an enzyme already known to catalyze that transformation, and generates candidate protein sequences where none exists.',
+      'Built the FIND engine — a chemistry matcher querying Rhea and RetroRules in parallel, with an atom-balance and EC-consistency gate that rejects matches contradicting the net atomic change, a confidence tier on every result, and multi-step search for single-intermediate routes.',
+      'Co-built the Design Studio for de novo design: RFdiffusion and ProteinMPNN adapters on GPU endpoints, ESMFold fold-back, synchronized dual 3D viewers for candidate comparison, and a homology screener gating every generated sequence behind authenticated, sign-off-gated access.',
+      'Run the platform on lab hardware — three systemd units with the backend bound to loopback, reached through an outbound-only Cloudflare tunnel because the hospital network blocks inbound connections. Reboot-tested, with GitHub Actions CI and a runbook so the lab can operate it independently.',
+      'Designed the interface and froze it into design tokens and a shared component kit, then rebuilt the prediction screen, results, history, and internal tools on it — answer-first results, a pathway diagram, and collapsible evidence sections.',
     ],
     tech: ['Ubuntu', 'systemd', 'Cloudflare Tunnel', 'GitHub Actions', 'FastAPI', 'Python', 'Next.js', 'React', 'TypeScript', 'RDKit', 'SQLite', 'PostgreSQL', 'Mol*', 'RFdiffusion', 'ProteinMPNN'],
     links: [
@@ -40,7 +38,7 @@ export const jobs: Project[] = [
     year: 'Jun 2025 – Sep 2025 · Jul 2026 – Mar 2027',
     description: '',
     bullets: [
-      'Refactoring Genedig, the lab\'s published genome browser (BMC Bioinformatics, 2015) for co-navigating DNA, RNA, and protein sequences, under contract through March 2027.',
+      'Refactoring Genedig, the lab\'s published genome browser (BMC Bioinformatics, 2015) for co-navigating DNA, RNA, and protein sequences.',
       'Diagnosed and fixed critical bugs across Genedig\'s PHP/JavaScript codebase, improving platform stability and reducing downtime for the research team.',
       'Built a local XAMPP/MySQL development environment that streamlined onboarding and let the team reproduce and troubleshoot issues faster.',
       'Demoed the working platform to the research group, walking through fixes and gathering feedback to prioritize next steps.',
