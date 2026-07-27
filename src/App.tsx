@@ -5,6 +5,7 @@ import Projects from './components/Projects'
 import Skills from './components/Skills'
 import Education from './components/Education'
 import Updates from './components/Updates'
+import Quote from './components/Quote'
 import Footer from './components/Footer'
 import MinimalView from './components/MinimalView'
 import { ModeProvider, useMode } from './context/ModeContext'
@@ -24,6 +25,7 @@ function AppContent() {
           <Skills />
           <Education />
           <Updates />
+          <Quote />
         </main>
       )}
       <Footer />
