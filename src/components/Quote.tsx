@@ -21,11 +21,9 @@ export default function Quote() {
           letterSpacing: '-0.01em',
           margin: 0,
         }}>
-          “And what is more enthralling to the human mind than this splendid,
-          boundless, coloured mutability!—life in the making? How strange it is,
-          then, that we should be contented to take such small parts of it as we
-          can grasp, and to say, <span style={{ color: 'var(--color-accent)' }}>
-          ‘This is the true explanation.’</span>”
+          “There are more things in heaven and earth, Horatio,
+          <span style={{ color: 'var(--color-accent)' }}>
+          {' '}than are dreamt of in your philosophy.</span>”
         </blockquote>
 
         <figcaption style={{
@@ -35,8 +33,8 @@ export default function Quote() {
           textTransform: 'uppercase',
           color: 'var(--color-muted)',
         }}>
-          David Grayson · <span style={{ textTransform: 'none', letterSpacing: '0.04em' }}>
-          Adventures in Contentment</span>
+          William Shakespeare · <span style={{ textTransform: 'none', letterSpacing: '0.04em' }}>
+          Hamlet, Act I, Scene V</span>
         </figcaption>
       </figure>
     </section>
