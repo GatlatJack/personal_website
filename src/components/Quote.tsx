@@ -34,7 +34,7 @@ export default function Quote() {
           color: 'var(--color-muted)',
         }}>
           William Shakespeare · <span style={{ textTransform: 'none', letterSpacing: '0.04em' }}>
-          Hamlet, Act I, Scene V</span>
+          Hamlet, quoted in Leonard Susskind’s The Black Hole War</span>
         </figcaption>
       </figure>
     </section>
