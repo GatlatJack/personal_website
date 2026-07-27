@@ -23,7 +23,7 @@ export default function Quote() {
         }}>
           “There are more things in heaven and earth, Horatio,
           <span style={{ color: 'var(--color-accent)' }}>
-          {' '}than are dreamt of in your philosophy.</span>”
+          {' '}than are dreamt of in your book.</span>”
         </blockquote>
 
         <figcaption style={{
@@ -34,7 +34,7 @@ export default function Quote() {
           color: 'var(--color-muted)',
         }}>
           William Shakespeare · <span style={{ textTransform: 'none', letterSpacing: '0.04em' }}>
-          Hamlet, Act I, Scene V</span>
+          Hamlet</span>
         </figcaption>
       </figure>
     </section>
